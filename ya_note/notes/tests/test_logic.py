@@ -28,6 +28,7 @@ class TestCreateNote(TestCase):
         }
 
     def create_note_w_default_data(self):
+        """Создание заметки."""
         return self.auth_user.post(reverse('notes:add'), data=self.form_data)
 
     def test_user_can_create_note(self):
@@ -52,9 +53,10 @@ class TestCreateNote(TestCase):
 
     def test_empty_slug(self):
         """Проверка что при пустом slug создаётся сгенерированный."""
-        # Тут я думаю всё понятно.
+        # Создание заметки, получение её в переменную note.
         self.create_note_w_default_data()
         note = Note.objects.get()
+        # Создание через slugify сгенерированного slug и сравнение с текущим.
         expected_slug = slugify(note.slug)
         self.assertEqual(note.slug, expected_slug)
 
