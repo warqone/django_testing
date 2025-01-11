@@ -27,8 +27,8 @@ def test_user_can_create_comment(
     """Авторизованный пользователь может создать комментарий."""
     response = auth_author.post(news_url, data=comment_form_data)
     assertRedirects(response, f'{news_url}#comments')
-    assert Comment.objects.count() == 1
     comment = Comment.objects.get()
+    assert Comment.objects.count() == 1
     assert comment.text == comment_form_data['text']
     assert comment.author == author
 
