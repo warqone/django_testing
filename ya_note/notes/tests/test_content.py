@@ -38,8 +38,8 @@ class TestContent(TestCase):
     def test_notes_have_note(self):
         """Заметка есть в списке заметок."""
         response = self.auth_user.get(self.notes_list)
-        self.assertIn('object_list', response.context)
         objects = response.context['object_list']
+        self.assertIn('object_list', response.context)
         self.assertIn(self.note, objects)
 
     def test_notes_from_another_user_not_availability(self):
