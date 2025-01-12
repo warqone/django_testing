@@ -60,11 +60,11 @@ class TestCreateNote(TestCase):
             reverse('notes:edit', args=(note.slug,)),
             data={'title': new_title}
         )
+        note.refresh_from_db()
+        self.assertNotEqual(note.title, new_title)
         self.auth_user.delete(
             reverse('notes:delete', args=(note.slug,)),
         )
-        note.refresh_from_db()
-        self.assertNotEqual(note.title, new_title)
         self.assertEqual(Note.objects.count(), 0)
 
     def test_else_user_cant_edit_and_delete_note(self):
