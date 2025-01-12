@@ -78,8 +78,8 @@ class TestCreateNote(TestCase):
             reverse('notes:edit', args=(note.slug,)),
             data={'title': new_title}
         )
+        self.assertEqual(note.title, note.title)
         else_auth_user.delete(
             reverse('notes:delete', args=(note.slug,)),
         )
-        self.assertEqual(note.title, note.title)
         self.assertEqual(Note.objects.count(), 1)
